@@ -1,0 +1,19 @@
+# image
+FROM node:lts-alpine
+
+# make the 'app' folder the current working directory
+WORKDIR /app
+
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
+
+# install project dependencies
+RUN npm install
+
+# add permission
+RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
+
+# build app dev mode
+EXPOSE 8080
+
+CMD ["npm", "run", "serve"]
